@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EventWelt — Dein Veranstaltungsportal für Deutschland</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Fraunces:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#F8F7FF;--white:#FFFFFF;--card:#FFFFFF;
+  --ink:#12002A;--mid:#1E0040;
+  --border:#E4DFF5;--border2:#C8BEEA;
+  --purple:#6B21A8;--purple2:#581C87;
+  --violet:#8B5CF6;--violet2:#7C3AED;
+  --pink:#EC4899;--pink2:#DB2777;
+  --amber:#F59E0B;--teal:#0D9488;
+  --green:#059669;
+  --muted:#6B5F80;--light:#A89CC0;
+  --warm:#F3F0FF;--warm2:#EDE9FE;
+}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+
+/* TOP STRIP */
+.topstrip{background:linear-gradient(90deg,var(--purple2),var(--violet2),var(--pink2));padding:9px 0}
+.ts-inner{max-width:1300px;margin:0 auto;padding:0 44px;display:flex;justify-content:space-between;align-items:center}
+.ts-l{font-size:11px;color:rgba(255,255,255,0.85);letter-spacing:0.5px;display:flex;align-items:center;gap:8px;font-weight:600}
+.ts-badge{background:rgba(255,255,255,0.2);padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700}
+.ts-r{display:flex;gap:16px}
+.ts-r a{font-size:10px;color:rgba(255,255,255,0.75);text-decoration:none;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;transition:color 0.2s}
+.ts-r a:hover{color:#fff}
+
+/* HEADER */
+header{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(107,33,168,0.06)}
+.hdr{max-width:1300px;margin:0 auto;padding:0 44px;display:flex;align-items:center;justify-content:space-between;height:70px}
+.logo{text-decoration:none;display:flex;align-items:center;gap:12px}
+.logo-icon{width:42px;height:42px;background:linear-gradient(135deg,var(--violet),var(--pink));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.logo-text{}
+.logo-name{font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:var(--ink);letter-spacing:-0.5px;line-height:1}
+.logo-name .welt{color:var(--violet)}
+.logo-tagline{font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;font-weight:600;margin-top:1px}
+.hdr-nav{display:flex;align-items:center;gap:2px}
+.hdr-nav a{padding:8px 14px;color:var(--muted);text-decoration:none;font-size:13px;font-weight:600;transition:all 0.2s;border-radius:8px}
+.hdr-nav a:hover{background:var(--warm);color:var(--ink)}
+.hdr-cta{background:linear-gradient(135deg,var(--violet),var(--pink));color:#fff;padding:10px 20px;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none;transition:opacity 0.2s;display:flex;align-items:center;gap:6px;margin-left:8px}
+.hdr-cta:hover{opacity:0.88}
+
+/* HERO BANNER */
+.hero{background:var(--ink);position:relative;overflow:hidden;padding:0}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#12002A 0%,#1E0040 40%,#2D0060 70%,#1A0035 100%)}
+.hero-orbs{position:absolute;inset:0;pointer-events:none}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.25}
+.orb1{width:500px;height:500px;background:var(--violet);top:-100px;left:-100px}
+.orb2{width:400px;height:400px;background:var(--pink);top:50px;right:-80px}
+.orb3{width:300px;height:300px;background:var(--amber);bottom:-80px;left:40%}
+.hero-inner{max-width:1300px;margin:0 auto;padding:72px 44px 80px;position:relative}
+.hero-content{max-width:700px}
+.hero-kicker{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:100px;padding:6px 16px;margin-bottom:24px;backdrop-filter:blur(8px)}
+.hk-dot{width:6px;height:6px;border-radius:50%;background:var(--pink);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+.hk-text{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.8)}
+.hero-title{font-family:'Fraunces',serif;font-size:68px;font-weight:700;color:#fff;line-height:1;margin-bottom:16px;letter-spacing:-2px}
+.hero-title span{color:var(--violet);font-style:italic}
+.hero-subtitle{font-size:18px;color:rgba(255,255,255,0.55);line-height:1.7;font-weight:300;margin-bottom:36px;max-width:560px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:48px}
+.btn-hero-p{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--violet),var(--pink));color:#fff;padding:14px 28px;border-radius:12px;font-size:14px;font-weight:700;text-decoration:none;transition:all 0.2s;box-shadow:0 8px 24px rgba(139,92,246,0.35)}
+.btn-hero-p:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(139,92,246,0.45)}
+.btn-hero-s{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.8);padding:14px 24px;border-radius:12px;font-size:14px;font-weight:600;text-decoration:none;transition:all 0.2s;backdrop-filter:blur(8px)}
+.btn-hero-s:hover{background:rgba(255,255,255,0.14);color:#fff}
+/* STATS */
+.hero-stats{display:flex;gap:32px;flex-wrap:wrap}
+.stat-item{text-align:left}
+.stat-num{font-family:'Fraunces',serif;font-size:36px;font-weight:700;color:#fff;line-height:1;letter-spacing:-1px}
+.stat-lbl{font-size:11px;color:rgba(255,255,255,0.35);font-weight:600;letter-spacing:1px;margin-top:2px}
+
+/* CATEGORY PILLS */
+.cat-strip{background:var(--white);border-bottom:1px solid var(--border);padding:0}
+.cat-strip-inner{max-width:1300px;margin:0 auto;padding:14px 44px;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+.cat-strip-inner::-webkit-scrollbar{display:none}
+.cat-pill{display:inline-flex;align-items:center;gap:6px;background:var(--warm);border:1px solid var(--border2);color:var(--muted);font-size:12px;font-weight:700;padding:7px 16px;border-radius:100px;text-decoration:none;transition:all 0.2s;white-space:nowrap;cursor:pointer}
+.cat-pill:hover,.cat-pill.active{background:var(--violet);border-color:var(--violet);color:#fff}
+.cat-pill .emoji{font-size:14px}
+
+/* MAIN LAYOUT */
+.main{max-width:1300px;margin:48px auto;padding:0 44px;display:grid;grid-template-columns:1fr 300px;gap:40px}
+
+/* SECTION HEAD */
+.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.sec-left{display:flex;align-items:center;gap:10px}
+.sec-dot{width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--pink));flex-shrink:0}
+.sec-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--ink);letter-spacing:-0.3px}
+.sec-count{font-size:12px;color:var(--muted);font-weight:600;background:var(--warm);border:1px solid var(--border);padding:3px 10px;border-radius:100px}
+.sec-link{font-size:12px;font-weight:700;color:var(--violet);text-decoration:none;display:flex;align-items:center;gap:4px;transition:gap 0.2s}
+.sec-link:hover{gap:8px}
+
+/* EVENT CARDS */
+.event-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;cursor:pointer;transition:all 0.3s;margin-bottom:14px;display:grid;grid-template-columns:180px 1fr;position:relative}
+.event-card:hover{box-shadow:0 16px 48px rgba(107,33,168,0.12);border-color:rgba(139,92,246,0.3);transform:translateX(3px)}
+.event-card:hover .ec-img-bg{transform:scale(1.07)}
+/* DATE SLAB */
+.ec-img{position:relative;overflow:hidden;background:var(--ink)}
+.ec-img-bg{width:100%;height:100%;position:absolute;inset:0;transition:transform 0.5s}
+.ec-date-badge{position:absolute;top:14px;left:14px;background:rgba(255,255,255,0.95);border-radius:10px;padding:8px 12px;text-align:center;min-width:54px;backdrop-filter:blur(8px)}
+.edb-day{font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:var(--ink);line-height:1}
+.edb-month{font-size:10px;font-weight:700;color:var(--violet);letter-spacing:2px;text-transform:uppercase;margin-top:1px}
+.ec-cat-tag{position:absolute;bottom:10px;left:10px;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:100px;backdrop-filter:blur(8px)}
+.ec-cat-konzert{background:rgba(139,92,246,0.85);color:#fff}
+.ec-cat-festival{background:rgba(236,72,153,0.85);color:#fff}
+.ec-cat-messe{background:rgba(245,158,11,0.85);color:#fff}
+.ec-cat-sport{background:rgba(5,150,105,0.85);color:#fff}
+.ec-cat-kultur{background:rgba(13,148,136,0.85);color:#fff}
+.ec-cat-default{background:rgba(107,33,168,0.85);color:#fff}
+/* BODY */
+.ec-body{padding:20px 24px;display:flex;flex-direction:column;justify-content:space-between}
+.ec-top{}
+.ec-meta-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.ec-type{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--violet)}
+.ec-sep{width:3px;height:3px;border-radius:50%;background:var(--light)}
+.ec-date-text{font-size:11px;color:var(--muted);font-weight:600}
+.ec-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--ink);line-height:1.2;margin-bottom:8px;transition:color 0.2s}
+.event-card:hover .ec-title{color:var(--violet)}
+.ec-excerpt{font-size:13px;line-height:1.65;color:var(--muted);font-weight:300;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:12px}
+.ec-footer{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid var(--border);flex-wrap:wrap;gap:8px}
+.ec-location{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--muted);font-weight:600}
+.ec-location-icon{font-size:13px}
+.ec-right{display:flex;align-items:center;gap:10px}
+.ec-author{font-size:11px;color:var(--muted);font-weight:600}
+.ec-read{display:inline-flex;align-items:center;gap:5px;background:var(--warm);border:1px solid var(--border2);color:var(--violet);font-size:11px;font-weight:700;padding:5px 12px;border-radius:100px;text-decoration:none;transition:all 0.2s;letter-spacing:0.5px}
+.ec-read:hover{background:var(--violet);border-color:var(--violet);color:#fff}
+
+/* bg gradients */
+.bg1{background:linear-gradient(135deg,#1E0040,#4C1D95)}.bg2{background:linear-gradient(135deg,#831843,#DB2777)}.bg3{background:linear-gradient(135deg,#92400E,#F59E0B)}.bg4{background:linear-gradient(135deg,#064E3B,#059669)}.bg5{background:linear-gradient(135deg,#134E4A,#0D9488)}.bg6{background:linear-gradient(135deg,#1E3A5F,#1D4ED8)}.bg7{background:linear-gradient(135deg,#3B0764,#7C3AED)}.bg8{background:linear-gradient(135deg,#7F1D1D,#DC2626)}
+
+.empty-state{text-align:center;padding:80px 40px;background:var(--card);border:1px solid var(--border);border-radius:16px}
+.empty-icon{font-size:52px;margin-bottom:14px}
+.empty-state h3{font-family:'Fraunces',serif;font-size:30px;color:var(--ink);margin-bottom:8px;font-weight:700}
+.empty-state p{font-size:14px;color:var(--muted)}
+
+/* SIDEBAR */
+.sidebar{display:flex;flex-direction:column;gap:16px}
+.widget{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.w-head{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;background:var(--warm)}
+.w-dot{width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--pink));flex-shrink:0}
+.w-title{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ink)}
+.w-body{padding:16px 18px}
+.wi{padding:11px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:padding 0.15s}
+.wi:last-child{border-bottom:none;padding-bottom:0}.wi:first-child{padding-top:0}
+.wi:hover{padding-left:5px}
+.wi-type{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--violet);margin-bottom:3px}
+.wi-title{font-family:'Fraunces',serif;font-size:16px;color:var(--ink);line-height:1.25;text-decoration:none;display:block;font-weight:600}
+.wi-title:hover{color:var(--violet)}
+.wi-meta{font-size:11px;color:var(--light);margin-top:2px;font-weight:500}
+/* PROMO BOX */
+.promo-box{background:linear-gradient(135deg,var(--ink),var(--mid));padding:26px;border-radius:14px;text-align:center;overflow:hidden;position:relative}
+.promo-box::after{content:'🎪';position:absolute;right:-10px;bottom:-15px;font-size:80px;opacity:0.08}
+.promo-kicker{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:8px}
+.promo-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:#fff;margin-bottom:8px;letter-spacing:-0.3px;line-height:1.1}
+.promo-title span{color:var(--violet);font-style:italic}
+.promo-text{font-size:12px;color:rgba(255,255,255,0.4);line-height:1.65;margin-bottom:18px;font-weight:300}
+.promo-btn{display:block;background:linear-gradient(135deg,var(--violet),var(--pink));color:#fff;padding:11px;border-radius:10px;font-size:11px;font-weight:700;text-decoration:none;text-align:center;transition:opacity 0.2s;letter-spacing:0.5px}
+.promo-btn:hover{opacity:0.85}
+/* CAT FILTER */
+.cat-filter-grid{display:flex;flex-wrap:wrap;gap:7px}
+.cf-item{display:flex;align-items:center;gap:5px;background:var(--warm);border:1px solid var(--border);color:var(--muted);font-size:11px;font-weight:700;padding:6px 12px;border-radius:100px;text-decoration:none;transition:all 0.2s;cursor:pointer}
+.cf-item:hover{background:var(--violet);border-color:var(--violet);color:#fff}
+
+/* FOOTER */
+footer{background:var(--ink);margin-top:60px}
+.footer-inner{max-width:1300px;margin:0 auto;padding:52px 44px 40px;display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:48px}
+.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.footer-logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--violet),var(--pink));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.footer-logo-name{font-family:'Fraunces',serif;font-size:24px;font-weight:700;color:#fff;letter-spacing:-0.3px}
+.footer-logo-name span{color:var(--violet);font-style:italic}
+.footer-brand p{font-size:13px;line-height:1.8;color:rgba(255,255,255,0.3);font-weight:300}
+.footer-col h4{font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:14px}
+.footer-col a{display:block;color:rgba(255,255,255,0.35);text-decoration:none;font-size:13px;margin-bottom:8px;font-weight:300;transition:color 0.2s}
+.footer-col a:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.06);max-width:1300px;margin:0 auto;padding:16px 44px;display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,0.2)}
+.footer-bottom a{color:rgba(255,255,255,0.2);text-decoration:none;margin-left:14px;transition:color 0.2s}
+.footer-bottom a:hover{color:#fff}
+.admin-link{position:fixed;bottom:22px;right:22px;background:linear-gradient(135deg,var(--violet),var(--pink));color:#fff;padding:11px 22px;font-size:11px;text-decoration:none;opacity:0;transition:opacity 0.3s;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border-radius:10px;box-shadow:0 4px 16px rgba(139,92,246,0.3)}
+body:hover .admin-link{opacity:0.5}
+.admin-link:hover{opacity:1!important}
+</style>
+</head>
+<body>
+
+<div class="topstrip"><div class="ts-inner">
+  <div class="ts-l">🎉 <span class="ts-badge">NEU</span>Events entdecken und teilen — ganz Deutschland</div>
+  <div class="ts-r"><a href="#">Event eintragen</a><a href="#">Über uns</a><a href="#">Impressum</a></div>
+</div></div>
+
+<header><div class="hdr">
+  <a href="index.html" class="logo">
+    <div class="logo-icon">🎪</div>
+    <div class="logo-text">
+      <div class="logo-name">Event<span class="welt">Welt</span></div>
+      <div class="logo-tagline">Konzerte · Festivals · Messen · Kultur · Sport</div>
+    </div>
+  </a>
+  <div class="hdr-nav">
+    <a href="index.html">Alle Events</a>
+    <a href="index.html">Konzerte</a>
+    <a href="index.html">Festivals</a>
+    <a href="index.html">Messen</a>
+    <a href="index.html">Kultur</a>
+    <a href="index.html">Sport</a>
+  </div>
+  <a href="admin.html" class="hdr-cta">✚ Event eintragen</a>
+</div></header>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-orbs"><div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-kicker"><div class="hk-dot"></div><div class="hk-text">Deutschlands Event-Community</div></div>
+      <div class="hero-title">Dein nächstes<br><span>Erlebnis</span><br>wartet.</div>
+      <div class="hero-subtitle">Konzerte, Festivals, Messen, Kulturveranstaltungen, Sportevents — entdecke was in deiner Stadt passiert und teile deine Events mit der Community.</div>
+      <div class="hero-btns">
+        <a href="index.html" class="btn-hero-p">🔍 Events entdecken</a>
+        <a href="admin.html" class="btn-hero-s">✚ Event eintragen</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item"><div class="stat-num" id="hero-count">0</div><div class="stat-lbl">Events geteilt</div></div>
+        <div class="stat-item"><div class="stat-num">DE</div><div class="stat-lbl">Ganz Deutschland</div></div>
+        <div class="stat-item"><div class="stat-num">∞</div><div class="stat-lbl">Kostenlos</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cat-strip"><div class="cat-strip-inner">
+  <div class="cat-pill active"><span class="emoji">🎯</span> Alle Events</div>
+  <div class="cat-pill"><span class="emoji">🎵</span> Konzerte</div>
+  <div class="cat-pill"><span class="emoji">🎪</span> Festivals</div>
+  <div class="cat-pill"><span class="emoji">🏛</span> Messen</div>
+  <div class="cat-pill"><span class="emoji">🎭</span> Kultur</div>
+  <div class="cat-pill"><span class="emoji">⚽</span> Sport</div>
+  <div class="cat-pill"><span class="emoji">🍺</span> Food & Drink</div>
+  <div class="cat-pill"><span class="emoji">🎨</span> Kunst</div>
+  <div class="cat-pill"><span class="emoji">💼</span> Business</div>
+  <div class="cat-pill"><span class="emoji">🎓</span> Bildung</div>
+  <div class="cat-pill"><span class="emoji">🧘</span> Wellness</div>
+  <div class="cat-pill"><span class="emoji">👶</span> Familie</div>
+</div></div>
+
+<div class="main">
+  <div>
+    <div class="sec-head">
+      <div class="sec-left"><div class="sec-dot"></div><div class="sec-title">Aktuelle Events</div><div class="sec-count" id="event-count">0 Events</div></div>
+      <a href="admin.html" class="sec-link">Event eintragen →</a>
+    </div>
+    <div id="events-list">
+      <div class="empty-state"><div class="empty-icon">🎪</div><h3>Noch keine Events</h3><p>Sei der Erste — trage dein Event ein!</p></div>
+    </div>
+  </div>
+  <aside class="sidebar">
+    <div class="promo-box">
+      <div class="promo-kicker">Kostenlos & einfach</div>
+      <div class="promo-title">Dein <span>Event</span> hier!</div>
+      <div class="promo-text">Konzert, Festival, Messe oder Kulturveranstaltung — trage es kostenlos ein und erreiche tausende Event-Fans.</div>
+      <a href="admin.html" class="promo-btn">✚ Jetzt eintragen</a>
+    </div>
+    <div class="widget">
+      <div class="w-head"><div class="w-dot"></div><div class="w-title">Neueste Events</div></div>
+      <div class="w-body"><div id="sidebar-events"></div></div>
+    </div>
+    <div class="widget">
+      <div class="w-head"><div class="w-dot"></div><div class="w-title">Kategorien</div></div>
+      <div class="w-body">
+        <div class="cat-filter-grid">
+          <div class="cf-item">🎵 Konzerte</div>
+          <div class="cf-item">🎪 Festivals</div>
+          <div class="cf-item">🏛 Messen</div>
+          <div class="cf-item">🎭 Kultur</div>
+          <div class="cf-item">⚽ Sport</div>
+          <div class="cf-item">🍺 Food</div>
+          <div class="cf-item">🎨 Kunst</div>
+          <div class="cf-item">💼 Business</div>
+          <div class="cf-item">🎓 Bildung</div>
+          <div class="cf-item">🧘 Wellness</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo"><div class="footer-logo-icon">🎪</div><div class="footer-logo-name">Event<span>Welt</span></div></div>
+      <p>EventWelt ist Deutschlands Community-Plattform für Veranstaltungen. Konzerte, Festivals, Messen, Kulturevents, Sport und mehr — kostenlos eintragen und entdecken.</p>
+    </div>
+    <div class="footer-col"><h4>Events</h4><a href="#">Konzerte</a><a href="#">Festivals</a><a href="#">Messen</a><a href="#">Kultur & Kunst</a><a href="#">Sport</a></div>
+    <div class="footer-col"><h4>Mitmachen</h4><a href="#">Event eintragen</a><a href="#">Newsletter</a><a href="#">Partner werden</a></div>
+    <div class="footer-col"><h4>Info</h4><a href="#">Über uns</a><a href="#">Impressum</a><a href="#">Datenschutz</a><a href="#">Kontakt</a></div>
+  </div>
+  <div class="footer-bottom"><span>&copy; 2026 EventWelt — Alle Rechte vorbehalten</span><div><a href="#">Impressum</a><a href="#">Datenschutz</a></div></div>
+</footer>
+<a href="admin.html" class="admin-link">⚙ Admin</a>
+
+<script>
+// Constants
+const GIST_ID = '42ea11087f40fdba423f8eb0f575ac96';
+const SITE_NAME = 'eventwelt';
+const RAW_URL = `https://gist.githubusercontent.com/Hamzamain-spec/${GIST_ID}/raw/posts.json`;
+
+const bgs = ['bg1','bg2','bg3','bg4','bg5','bg6','bg7','bg8'];
+const catColors = {
+  'Konzert':'ec-cat-konzert',
+  'Festival':'ec-cat-festival',
+  'Messe':'ec-cat-messe',
+  'Sport':'ec-cat-sport',
+  'Kultur':'ec-cat-kultur'
+};
+
+function getCatClass(cat) {
+  return catColors[cat] || 'ec-cat-default';
+}
+
+function formatDate(iso) {
+  const d = new Date(iso);
+  const months = ['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'];
+  return {
+    day: d.getDate(),
+    month: months[d.getMonth()],
+    full: d.toLocaleDateString('de-DE', {weekday:'long', day:'numeric', month:'long', year:'numeric'})
+  };
+}
+
+async function loadEvents() {
+  try {
+    const response = await fetch(RAW_URL);
+    const allPosts = await response.json();
+    
+    // Filter events by site name
+    const posts = Array.isArray(allPosts) 
+      ? allPosts.filter(p => p.site === SITE_NAME).reverse()
+      : [];
+    
+    document.getElementById('hero-count').textContent = posts.length;
+    document.getElementById('event-count').textContent = posts.length + ' Events';
+    
+    const el = document.getElementById('events-list');
+    const se = document.getElementById('sidebar-events');
+    
+    if (!posts.length) {
+      el.innerHTML = '<div class="empty-state"><div class="empty-icon">🎪</div><h3>Noch keine Events</h3><p>Sei der Erste — trage dein Event ein!</p></div>';
+      se.innerHTML = '';
+      return;
+    }
+    
+    // Main events list
+    el.innerHTML = '';
+    posts.forEach((p, i) => {
+      const dt = formatDate(p.date);
+      const exc = p.content.replace(/<[^>]+>/g, '').substring(0, 110) + '...';
+      const cat = p.category || 'Event';
+      
+      el.innerHTML += `<div class="event-card" onclick="location.href='post.html?id=${p.id}'">
+        <div class="ec-img">
+          <div class="ec-img-bg ${bgs[i % bgs.length]}"></div>
+          <div class="ec-date-badge">
+            <div class="edb-day">${dt.day}</div>
+            <div class="edb-month">${dt.month}</div>
+          </div>
+          <div class="ec-cat-tag ${getCatClass(cat)}">${cat}</div>
+        </div>
+        <div class="ec-body">
+          <div class="ec-top">
+            <div class="ec-meta-row">
+              <span class="ec-type">${cat}</span>
+              <div class="ec-sep"></div>
+              <span class="ec-date-text">${dt.full}</span>
+            </div>
+            <div class="ec-title">${p.title}</div>
+            <div class="ec-excerpt">${exc}</div>
+          </div>
+          <div class="ec-footer">
+            <div class="ec-location">
+              <span class="ec-location-icon">📍</span>${p.location || 'Deutschland'}
+            </div>
+            <div class="ec-right">
+              <span class="ec-author">${p.author || 'Community'}</span>
+              <a class="ec-read" href="post.html?id=${p.id}">Mehr →</a>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    });
+    
+    // Sidebar recent events
+    se.innerHTML = '';
+    posts.slice(0, 5).forEach(p => {
+      se.innerHTML += `<div class="wi" onclick="location.href='post.html?id=${p.id}'">
+        <div class="wi-type">${p.category || 'Event'}</div>
+        <a class="wi-title" href="post.html?id=${p.id}">${p.title}</a>
+        <div class="wi-meta">📍 ${p.location || 'Deutschland'} · ${new Date(p.date).toLocaleDateString('de-DE')}</div>
+      </div>`;
+    });
+    
+  } catch (e) {
+    console.error('Error loading events:', e);
+  }
+}
+
+// Load events on page load
+loadEvents();
+
+// Auto-refresh every 30 seconds
+setInterval(loadEvents, 30000);
+</script>
+</body>
+</html>
