@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Event — EventWelt</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800&family=Fraunces:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#F8F7FF;--white:#FFFFFF;--card:#FFFFFF;--ink:#12002A;--mid:#1E0040;--border:#E4DFF5;--border2:#C8BEEA;--purple:#6B21A8;--violet:#8B5CF6;--violet2:#7C3AED;--pink:#EC4899;--muted:#6B5F80;--light:#A89CC0;--warm:#F3F0FF;--warm2:#EDE9FE}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+header{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(107,33,168,0.06)}
+.hdr-inner{max-width:1300px;margin:0 auto;padding:0 44px;height:66px;display:flex;align-items:center;justify-content:space-between}
+.logo{text-decoration:none;display:flex;align-items:center;gap:10px}
+.logo-icon{width:38px;height:38px;background:linear-gradient(135deg,var(--violet),var(--pink));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px}
+.logo-name{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--ink);letter-spacing:-0.3px}
+.logo-name span{color:var(--violet);font-style:italic}
+nav{background:var(--ink)}
+.nav-inner{max-width:1300px;margin:0 auto;padding:0 44px;display:flex;align-items:center}
+nav a{display:block;padding:11px 16px;color:rgba(255,255,255,0.45);text-decoration:none;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;transition:color 0.2s}
+nav a:hover{color:#fff}
+
+/* EVENT HERO */
+.event-hero{background:var(--mid);position:relative;overflow:hidden}
+.eh-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.2}
+.eh-orb1{width:400px;height:400px;background:var(--violet);top:-100px;left:-80px}
+.eh-orb2{width:300px;height:300px;background:var(--pink);top:0;right:-60px}
+.eh-inner{max-width:1300px;margin:0 auto;padding:60px 44px;position:relative}
+.eh-breadcrumb{font-size:11px;color:rgba(255,255,255,0.25);margin-bottom:18px;display:flex;gap:6px;font-weight:500}
+.eh-breadcrumb a{color:rgba(255,255,255,0.25);text-decoration:none;transition:color 0.2s}
+.eh-breadcrumb a:hover{color:var(--violet)}
+.eh-type{display:inline-flex;align-items:center;gap:6px;background:rgba(139,92,246,0.2);border:1px solid rgba(139,92,246,0.3);color:var(--violet);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:100px;margin-bottom:18px}
+.eh-title{font-family:'Fraunces',serif;font-size:58px;font-weight:700;color:#fff;line-height:1;margin-bottom:20px;letter-spacing:-1.5px;max-width:780px}
+.eh-meta-grid{display:flex;gap:28px;flex-wrap:wrap}
+.eh-meta-item{display:flex;align-items:center;gap:8px}
+.emi-icon{width:32px;height:32px;background:rgba(255,255,255,0.08);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.emi-label{font-size:10px;color:rgba(255,255,255,0.3);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:1px}
+.emi-value{font-size:13px;color:rgba(255,255,255,0.85);font-weight:600}
+
+.layout{max-width:1260px;margin:48px auto;padding:0 44px;display:grid;grid-template-columns:1fr 280px;gap:36px}
+.main-col{background:var(--card);padding:48px 52px;border:1px solid var(--border);border-radius:16px;border-top:3px solid var(--violet)}
+.back-btn{display:inline-flex;align-items:center;gap:7px;border:1.5px solid var(--border2);color:var(--muted);text-decoration:none;font-size:11px;font-weight:700;padding:8px 16px;margin-bottom:32px;letter-spacing:1.5px;text-transform:uppercase;border-radius:100px;transition:all 0.2s}
+.back-btn:hover{border-color:var(--violet);color:var(--violet)}
+.article-body{font-size:17px;line-height:1.9;color:#2A1840;font-weight:300}
+.article-body p{margin-bottom:24px}
+.article-body h2{font-family:'Fraunces',serif;font-size:32px;font-weight:700;color:var(--ink);margin:48px 0 14px;letter-spacing:-0.5px;position:relative;padding-bottom:12px}
+.article-body h2::after{content:'';position:absolute;bottom:0;left:0;width:28px;height:3px;background:linear-gradient(to right,var(--violet),var(--pink));border-radius:2px}
+.article-body h3{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--ink);margin:26px 0 10px}
+.article-body a{color:var(--violet);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(139,92,246,0.3);transition:all 0.2s}
+.article-body a:hover{color:var(--ink);border-color:var(--ink)}
+.article-body ul,.article-body ol{padding-left:24px;margin-bottom:22px}
+.article-body li{margin-bottom:8px;line-height:1.8}
+.article-body strong{font-weight:700;color:var(--ink)}
+blockquote{border-left:3px solid var(--violet);padding:0 0 0 22px;margin:30px 0;font-family:'Fraunces',serif;font-size:20px;color:var(--ink);line-height:1.55;font-style:italic}
+
+.sidebar{display:flex;flex-direction:column;gap:14px}
+.widget{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.wh{padding:12px 18px;border-bottom:1px solid var(--border);background:var(--warm);display:flex;align-items:center;gap:8px}
+.wh-dot{width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--pink));flex-shrink:0}
+.wh-title{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ink)}
+.wb{padding:14px 18px}
+.wi{padding:11px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:padding 0.15s}
+.wi:last-child{border-bottom:none;padding-bottom:0}.wi:first-child{padding-top:0}
+.wi:hover{padding-left:5px}
+.wi-type{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--violet);margin-bottom:3px}
+.wi-title{font-family:'Fraunces',serif;font-size:16px;color:var(--ink);line-height:1.25;text-decoration:none;display:block;font-weight:600}
+.wi-title:hover{color:var(--violet)}
+.wi-meta{font-size:11px;color:var(--light);margin-top:2px}
+.share-box{background:linear-gradient(135deg,var(--mid),#3B0764);padding:24px;border-radius:14px;text-align:center}
+.sb-title{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:6px;font-style:italic}
+.sb-text{font-size:12px;color:rgba(255,255,255,0.4);line-height:1.6;font-weight:300;margin-bottom:16px}
+.sb-btn{display:block;background:linear-gradient(135deg,var(--violet),var(--pink));color:#fff;padding:11px;border-radius:10px;font-size:11px;font-weight:700;text-decoration:none;text-align:center;transition:opacity 0.2s;letter-spacing:0.5px}
+.sb-btn:hover{opacity:0.85}
+.not-found{text-align:center;padding:80px;color:var(--muted);grid-column:1/-1}
+footer{background:var(--ink);margin-top:52px;text-align:center;padding:24px;font-size:12px;color:rgba(255,255,255,0.2)}
+footer a{color:rgba(255,255,255,0.2);text-decoration:none;margin:0 10px;transition:color 0.2s}
+footer a:hover{color:#fff}
+.fl{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:#fff;margin-bottom:5px}
+.fl span{color:var(--violet);font-style:italic}
+</style>
+</head>
+<body>
+<header><div class="hdr-inner">
+  <a href="index.html" class="logo"><div class="logo-icon">🎪</div><div class="logo-name">Event<span>Welt</span></div></a>
+</div></header>
+<nav><div class="nav-inner"><a href="index.html">← Alle Events</a><a href="index.html">Konzerte</a><a href="index.html">Festivals</a><a href="index.html">Messen</a><a href="index.html">Kultur</a><a href="index.html">Sport</a></div></nav>
+
+<div id="event-hero" class="event-hero" style="display:none">
+  <div class="eh-orb eh-orb1"></div><div class="eh-orb eh-orb2"></div>
+  <div class="eh-inner">
+    <div class="eh-breadcrumb"><a href="index.html">EventWelt</a><span>/</span><span id="eh-cat-bc">Event</span></div>
+    <div class="eh-type" id="eh-type">🎪 Event</div>
+    <div class="eh-title" id="eh-title"></div>
+    <div class="eh-meta-grid">
+      <div class="eh-meta-item"><div class="emi-icon">📅</div><div><div class="emi-label">Datum</div><div class="emi-value" id="eh-date">—</div></div></div>
+      <div class="eh-meta-item"><div class="emi-icon">📍</div><div><div class="emi-label">Ort</div><div class="emi-value" id="eh-location">—</div></div></div>
+      <div class="eh-meta-item"><div class="emi-icon">👤</div><div><div class="emi-label">Eingetragen von</div><div class="emi-value" id="eh-author">—</div></div></div>
+      <div class="eh-meta-item"><div class="emi-icon">⏱</div><div><div class="emi-label">Lesezeit</div><div class="emi-value" id="eh-read">—</div></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="layout">
+  <div class="main-col">
+    <a href="index.html" class="back-btn">← Alle Events</a>
+    <div id="article-body" class="article-body"></div>
+    <div id="not-found" class="not-found" style="display:none"><h2 style="font-family:'Fraunces',serif;font-size:34px;color:var(--ink)">Event nicht gefunden.</h2></div>
+  </div>
+  <aside class="sidebar">
+    <div class="share-box">
+      <div class="sb-title">Event teilen</div>
+      <div class="sb-text">Teile dieses Event mit Freunden und der Community!</div>
+      <a href="index.html" class="sb-btn">🔗 Link teilen</a>
+    </div>
+    <div class="widget"><div class="wh"><div class="wh-dot"></div><div class="wh-title">Weitere Events</div></div><div class="wb"><div id="recent-events"></div></div></div>
+  </aside>
+</div>
+<footer><div class="fl">Event<span>Welt</span></div><p>&copy; 2026 EventWelt &nbsp;|&nbsp;<a href="#">Impressum</a>&nbsp;|&nbsp;<a href="#">Datenschutz</a></p></footer>
+<script>
+// Constants
+const GIST_ID = '42ea11087f40fdba423f8eb0f575ac96';
+const SITE_NAME = 'eventwelt';
+const RAW_URL = `https://gist.githubusercontent.com/Hamzamain-spec/${GIST_ID}/raw/posts.json`;
+
+const params = new URLSearchParams(window.location.search);
+const id = params.get('id');
+
+async function loadPost() {
+  try {
+    const response = await fetch(RAW_URL);
+    const allPosts = await response.json();
+    
+    // Filter posts by site name
+    const sitePosts = Array.isArray(allPosts) 
+      ? allPosts.filter(p => p.site === SITE_NAME)
+      : [];
+    
+    const post = sitePosts.find(p => p.id == id);
+    
+    if (post) {
+      document.title = post.title + ' — EventWelt';
+      document.getElementById('eh-title').textContent = post.title;
+      document.getElementById('eh-type').textContent = '🎪 ' + (post.category || 'Event');
+      document.getElementById('eh-cat-bc').textContent = post.category || 'Event';
+      document.getElementById('eh-author').textContent = post.author || 'Community';
+      document.getElementById('eh-location').textContent = post.location || 'Deutschland';
+      document.getElementById('eh-date').textContent = new Date(post.date).toLocaleDateString('de-DE', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
+      
+      const w = post.content.replace(/<[^>]+>/g, '').split(' ').length;
+      document.getElementById('eh-read').textContent = Math.max(1, Math.round(w / 200)) + ' Min.';
+      document.getElementById('article-body').innerHTML = post.content;
+      document.getElementById('event-hero').style.display = 'block';
+      
+      // Recent events (excluding current)
+      const re = document.getElementById('recent-events');
+      re.innerHTML = '';
+      sitePosts.slice().reverse().slice(0, 5).forEach(p => {
+        if (p.id == id) return;
+        re.innerHTML += `<div class="wi" onclick="location.href='post.html?id=${p.id}'">
+          <div class="wi-type">${p.category || 'Event'}</div>
+          <a class="wi-title" href="post.html?id=${p.id}">${p.title}</a>
+          <div class="wi-meta">📍 ${p.location || 'Deutschland'} · ${new Date(p.date).toLocaleDateString('de-DE')}</div>
+        </div>`;
+      });
+    } else {
+      document.getElementById('not-found').style.display = 'block';
+    }
+  } catch (e) {
+    console.error('Error loading post:', e);
+    document.getElementById('not-found').style.display = 'block';
+  }
+}
+
+// Load the post
+loadPost();
+</script>
+</body>
+</html>
